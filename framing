@@ -1,0 +1,10 @@
+lowker = pd.DataFrame({
+    "Posisi"    : posisi,
+    "Instansi"  : instansi,
+    "Lokasi"    : lokasi,
+    "Tipe"      : tipe,
+    "Gaji"      : gaji,
+    "Tanggal"   : tanggal
+})
+
+lowker
