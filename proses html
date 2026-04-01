@@ -1,0 +1,108 @@
+import requests
+
+th = "https://job.id/search/?keywords=sales&location=DKI-Jakarta"
+halaman = requests.get(th)
+
+print("Status code:", halaman.status_code)
+print("Isi HTML (500 karakter pertama):")
+print(halaman.text[:500])
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+import requests
+from bs4 import BeautifulSoup
+
+th = "https://job.id/search/?keywords=sales&location=DKI-Jakarta"
+halaman = requests.get(th)
+hasil = BeautifulSoup(halaman.content, 'html.parser')
+
+# Cari semua class yang mengandung kata kunci
+semua_class = set()
+for tag in hasil.find_all(True):
+    for c in tag.get("class", []):
+        if any(kata in c.lower() for kata in ["job", "lowong", "card", "item", "list", "result", "ads"]):
+            semua_class.add(c)
+
+print("Class yang ditemukan:")
+for c in sorted(semua_class):
+    print(" -", c)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+# Cek isi satu lowongan dulu
+lowkers = hasil.find_all(class_="job-row")
+print("Jumlah lowongan ditemukan:", len(lowkers))
+
+# Lihat struktur HTML lowongan pertama
+if len(lowkers) > 0:
+    print("\nStruktur lowongan pertama:")
+    print(lowkers[0].prettify())
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
+
+th = "https://job.id/search/?keywords=sales&location=DKI-Jakarta"
+halaman = requests.get(th)
+hasil = BeautifulSoup(halaman.content, 'html.parser')
+
+lowkers = hasil.find_all(class_="job-row")
+
+posisi = []
+instansi = []
+lokasi = []
+tipe = []
+gaji = []
+tanggal = []
+
+for p in lowkers:
+    # Ambil posisi
+    posisi.append(p.select_one(".jr-title").get_text(strip=True))
+    
+    # Ambil instansi/perusahaan
+    instansi.append(p.select_one(".jr-company").get_text(strip=True))
+    
+    # Ambil meta-pill (lokasi, tipe, gaji)
+    pills = p.select(".meta-pill")
+    
+    # Lokasi (pill pertama)
+    try:
+        lokasi.append(pills[0].get_text(strip=True))
+    except:
+        lokasi.append("-")
+    
+    # Tipe pekerjaan (pill kedua)
+    try:
+        tipe.append(pills[1].get_text(strip=True))
+    except:
+        tipe.append("-")
+    
+    # Gaji (pill ketiga)
+    try:
+        xgaji = p.select_one(".salary").get_text(strip=True)
+        xgaji = xgaji.replace("Rp", "").replace(",", "").strip()
+    except:
+        xgaji = "Dirahasiakan"
+    gaji.append(xgaji)
+    
+    # Tanggal
+    try:
+        tanggal.append(p.select_one(".jr-date").get_text(strip=True))
+    except:
+        tanggal.append("-")
+
+print(posisi)
+print(instansi)
+print(lokasi)
+print(tipe)
+print(gaji)
+print(tanggal)
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
