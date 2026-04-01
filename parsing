@@ -1,0 +1,8 @@
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
+
+th = "https://job.id/search/?keywlocation=DKI-Jakartaords=sales"
+halaman = requests.get(th)
+hasil = BeautifulSoup(halaman.content, 'html.parser')
+print(hasil)
