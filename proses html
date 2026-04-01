@@ -1,3 +1,6 @@
+Kode 1 — Cek Koneksi ke Website
+Tujuan: Mengecek apakah website bisa diakses dan melihat isi HTML-nya.
+-----------------------------------------------------------------------
 import requests
 
 th = "https://job.id/search/?keywords=sales&location=DKI-Jakarta"
@@ -6,10 +9,13 @@ halaman = requests.get(th)
 print("Status code:", halaman.status_code)
 print("Isi HTML (500 karakter pertama):")
 print(halaman.text[:500])
-
 -------------------------------------------------------------------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+Kode 2 — Mencari Class HTML yang Relevan
+Tujuan: Mendeteksi nama-nama class CSS yang berkaitan dengan lowongan kerja di dalam HTML.
+------------------------------------------------------------------------------------------
 import requests
 from bs4 import BeautifulSoup
 
@@ -29,8 +35,12 @@ for c in sorted(semua_class):
     print(" -", c)
 
 -------------------------------------------------------------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+Kode 3 — Mengecek Struktur HTML Lowongan
+Tujuan: Memverifikasi apakah class job-row benar digunakan dan melihat struktur HTML-nya.
+-----------------------------------------------------------------------------------------
 # Cek isi satu lowongan dulu
 lowkers = hasil.find_all(class_="job-row")
 print("Jumlah lowongan ditemukan:", len(lowkers))
@@ -42,7 +52,9 @@ if len(lowkers) > 0:
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-
+Kode 4 — Scraping Data Lowongan ke dalam List
+Tujuan: Mengambil detail setiap lowongan (posisi, perusahaan, lokasi, tipe, gaji, tanggal) dan menyimpannya ke dalam list.
+-------------------------------------------------------------------------------------------------------------------------
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
