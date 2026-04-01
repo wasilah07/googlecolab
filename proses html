@@ -51,6 +51,8 @@ if len(lowkers) > 0:
     print(lowkers[0].prettify())
 
 -------------------------------------------------------------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 Kode 4 — Scraping Data Lowongan ke dalam List
 Tujuan: Mengambil detail setiap lowongan (posisi, perusahaan, lokasi, tipe, gaji, tanggal) dan menyimpannya ke dalam list.
