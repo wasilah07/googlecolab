@@ -1,0 +1,2 @@
+# googlecolab
+Langkah-langkah scraping 
